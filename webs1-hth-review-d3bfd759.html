@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华体会 · 信息入口</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fbe9e7 0%, #f8d5c3 50%, #f0c2b0 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.2rem;
+            line-height: 1.6;
+            color: #2e241e;
+        }
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(255, 250, 245, 0.85);
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            padding: 2.4rem 2rem;
+            box-shadow: 0 12px 40px rgba(140, 80, 50, 0.18);
+            transition: box-shadow 0.25s;
+        }
+        @media (min-width: 720px) {
+            .container { padding: 3.2rem 3rem; }
+        }
+        header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-bottom: 2.6rem;
+        }
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #4f3022;
+            background: linear-gradient(135deg, #6b3f2b, #9a5d3b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        header p {
+            font-size: 1rem;
+            color: #604c3e;
+            border-left: 4px solid #d9a58b;
+            padding-left: 1rem;
+            max-width: 640px;
+        }
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.8rem;
+            margin: 2rem 0 2.4rem;
+        }
+        @media (min-width: 640px) {
+            .knowledge-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.6rem 1.8rem;
+            box-shadow: 0 4px 16px rgba(110, 65, 40, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s;
+            border: 1px solid rgba(220, 180, 160, 0.3);
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 26px rgba(130, 75, 50, 0.12);
+        }
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.9rem;
+            color: #4d3428;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card h3::before {
+            content: "✦";
+            color: #c38567;
+            font-weight: 400;
+            font-size: 1.2rem;
+        }
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: #3d3029;
+        }
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .card ul li {
+            padding: 0.3rem 0 0.3rem 1.2rem;
+            position: relative;
+        }
+        .card ul li::before {
+            content: "·";
+            position: absolute;
+            left: 0.2rem;
+            color: #b27a60;
+            font-weight: 700;
+        }
+        .inline-link {
+            color: #8c5b40;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid #e2c0ae;
+            padding-bottom: 0.1rem;
+            transition: border-color 0.15s, color 0.15s;
+            border-radius: 0 0 4px 4px;
+        }
+        .inline-link:hover {
+            border-bottom-color: #ac7b5f;
+            color: #542f1e;
+        }
+        .notice-area {
+            background: #f2e5de;
+            border-radius: 30px;
+            padding: 1.4rem 1.8rem;
+            margin: 1.8rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.8rem 1.2rem;
+            border-left: 6px solid #c58d71;
+        }
+        .notice-area span:first-child {
+            font-weight: 600;
+            color: #3f2b20;
+            background: #fff5ee;
+            padding: 0.1rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+        }
+        .notice-area p {
+            flex: 1;
+            min-width: 200px;
+            font-size: 0.95rem;
+            color: #382a22;
+        }
+        .faq-mini {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin: 2rem 0 0.6rem;
+        }
+        .faq-item {
+            background: rgba(255, 240, 232, 0.6);
+            border-radius: 24px;
+            padding: 0.8rem 1.4rem;
+            border: 1px solid #e7cfbe;
+        }
+        .faq-item strong {
+            display: block;
+            font-weight: 600;
+            color: #452f23;
+            margin-bottom: 0.2rem;
+            font-size: 1rem;
+        }
+        .faq-item p {
+            font-size: 0.9rem;
+            color: #493a30;
+        }
+        .footnote {
+            margin-top: 2.4rem;
+            text-align: center;
+            border-top: 1px solid #dcc3b4;
+            padding-top: 1.6rem;
+            font-size: 0.85rem;
+            color: #5b473b;
+        }
+        .footnote a {
+            color: #6a4430;
+            text-decoration: none;
+            border-bottom: 1px dotted #b48b76;
+        }
+        .footnote a:hover {
+            border-bottom-style: solid;
+        }
+        .btn-soft {
+            display: inline-block;
+            background: #fffaf5;
+            border: 1px solid #d5b09b;
+            padding: 0.3rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            color: #3f291e;
+            font-weight: 500;
+            transition: all 0.15s;
+            cursor: default;
+            margin-left: 0.2rem;
+        }
+        .btn-soft:hover {
+            background: #efe0d6;
+            border-color: #b58268;
+        }
+        @media (max-width: 480px) {
+            .container { padding: 1.5rem 1rem; }
+            header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1>华体会 · 持续关注索引</h1>
+        <p>面向再次访问、收藏与定期查阅的使用路径，将常用入口、场景备忘与动态提示归整为知识卡片。</p>
+    </header>
+
+    <div class="knowledge-grid">
+        <div class="card">
+            <h3>回访备忘</h3>
+            <p>如你已熟悉 <a href="https://webs1-hth.com" class="inline-link">华体会</a> 的基础内容，可直接进入平台查询最新动态。建议将链接添加至书签栏，或使用固定标签页保持访问连贯性。</p>
+            <ul style="margin-top: 0.8rem;">
+                <li>检查页面版本与功能模块更新</li>
+                <li>留意通知区域的重要时间节点</li>
+                <li>根据个人习惯设置浏览器收藏夹别名</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>收藏与组织</h3>
+            <p>将 <a href="https://webs1-hth.com" class="inline-link">华体会</a> 归入常用分类，便于跨设备同步。推荐使用文件夹管理：</p>
+            <ul>
+                <li>主站入口 / 常用工具集</li>
+                <li>资讯聚合 / 参考索引</li>
+                <li>临时笔记关联链接</li>
+            </ul>
+            <p style="margin-top: 0.6rem; font-size: 0.9rem;">定期清理冗余书签，保持入口整洁。</p>
+        </div>
+
+        <div class="card">
+            <h3>变化追踪</h3>
+            <p>平台界面与信息结构可能迭代优化。通过 <a href="https://webs1-hth.com" class="inline-link">华体会</a> 主页可感知布局调整、新增栏目或交互改进。</p>
+            <p style="margin-top: 0.5rem;">建议每 2–4 周做一次快速浏览，以维持对内容框架的熟悉度。</p>
+        </div>
+
+        <div class="card">
+            <h3>使用场景</h3>
+            <ul>
+                <li>日常信息查阅与内容比对</li>
+                <li>作为参考锚点进行资料整理</li>
+                <li>向他人介绍时提供统一入口</li>
+                <li>多设备间保持访问一致性</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="notice-area">
+        <span>📌 提示</span>
+        <p>直接访问 <a href="https://webs1-hth.com" class="inline-link">华体会</a> 可获取完整页面。若网络环境变化，可尝试刷新或检查域名解析状态。建议使用主流浏览器以兼容样式。</p>
+    </div>
+
+    <div class="faq-mini">
+        <div class="faq-item">
+            <strong>如何快速找到之前看过的内容？</strong>
+            <p>将 <a href="https://webs1-hth.com" class="inline-link">华体会</a> 添加至书签并命名，或使用浏览器历史记录按站点筛选。部分页面提供站内搜索，亦可借助外部搜索引擎限定站点。</p>
+        </div>
+        <div class="faq-item">
+            <strong>需要注册或登录才能使用吗？</strong>
+            <p>直接访问 <a href="https://webs1-hth.com" class="inline-link">华体会</a> 即可浏览公开内容，无需额外操作。部分交互功能可能根据页面说明进行。</p>
+        </div>
+        <div class="faq-item">
+            <strong>链接打开后显示异常怎么办？</strong>
+            <p>检查网络连接，尝试清除浏览器缓存或使用隐私窗口。若持续异常，可稍后重试。页面维护期间可能短暂不可达。</p>
+        </div>
+    </div>
+
+    <div class="footnote">
+        <span>信息聚合 · 非官方镜像</span>
+        <span style="margin: 0 0.6rem;">·</span>
+        <span>内容仅供参考，以实际页面为准</span>
+        <span style="margin: 0 0.6rem;">·</span>
+        <a href="https://webs1-hth.com">华体会</a>
+    </div>
+
+</div>
+</body>
+</html>
